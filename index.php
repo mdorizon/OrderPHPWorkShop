@@ -1,62 +1,62 @@
 <?php
 
-class vendor_machine {
-    private bool $is_on;
-    private int $snacks_qty;
+class VendorMachine {
+    private bool $isOn;
+    private int $snacksQty;
     private int $money;
 
     public function __construct() {
-        $this->is_on = false;
-        $this->snacks_qty = 50;
+        $this->isOn = false;
+        $this->snacksQty = 50;
         $this->money = 0;
     }
 
-    public function buySnack() {
-        if (!$this->is_on) {
+    public function buySnack(): void {
+        if (!$this->isOn) {
             throw new ErrorException("La machine est malheureusement éteinte :/");
         };
-        if ($this->snacks_qty == 0) {
+        if ($this->snacksQty == 0) {
             throw new ErrorException("La machine n'as plus de snacks :/");
         };
-        $this->snacks_qty -= 1;
+        $this->snacksQty -= 1;
         $this->money += 2;
     }
 
-    public function reset() {
-        $this->is_on = false;
+    public function reset(): void {
+        $this->isOn = false;
         $this->money = 0;
-        $this->snacks_qty += (50 - $this->snacks_qty);
-        $this->is_on = true;
+        $this->snacksQty += (50 - $this->snacksQty);
+        $this->isOn = true;
     }
 
-    public function shoot_with_foot() {
-        $this->is_on = false;
+    public function shootWithFoot(): void {
+        $this->isOn = false;
 
-        $dropped_snacks = $this->drop_snacks();
-        $dropped_money  = $this->drop_money();
+        $droppedSnacks = $this->dropSnacks();
+        $droppedMoney  = $this->dropMoney();
 
-        echo 'snacks tombés : ' . $dropped_snacks . ', argent tombé : ' . $dropped_money;
+        echo 'snacks tombés : ' . $droppedSnacks . ', argent tombé : ' . $droppedMoney;
     }
 
-    private function drop_money() {
-        $money_to_drop = 20;
+    private function dropMoney() {
+        $moneyToDrop = 20;
         if ($this->money < 20) {
-            $money_to_drop = $this->money;
+            $moneyToDrop = $this->money;
         }
-        $this->money -= $money_to_drop;
-        return $money_to_drop;
+        $this->money -= $moneyToDrop;
+        return $moneyToDrop;
     }
     
-    private function drop_snacks() {
-        $snack_qty_to_drop = 5;
-        if ($this->snacks_qty < 5) {
-            $snack_qty_to_drop = $this->snacks_qty;
+    private function dropSnacks() {
+        $snackQtyToDrop = 5;
+        if ($this->snacksQty < 5) {
+            $snackQtyToDrop = $this->snacksQty;
         }
-        $this->snacks_qty -= $snack_qty_to_drop;
-        return $snack_qty_to_drop;
+        $this->snacksQty -= $snackQtyToDrop;
+        return $snackQtyToDrop;
     }
 }
 
-$vendor_machine_1 = new vendor_machine();
-$vendor_machine_1->shoot_with_foot();
+$vendor_machine_1 = new VendorMachine();
+$vendor_machine_1->shootWithFoot();
 ?>
