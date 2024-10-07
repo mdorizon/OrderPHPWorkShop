@@ -28,9 +28,9 @@ class Order {
         echo "Commande {$this->id} créée !";
     }
 
-    public function removeProduct($product) {
-        if (in_array($product, $this->products)) {
-            unset($this->products[array_search($product, $this->products)]);
+    public function removeProduct(string $product) {
+        if (($key = array_search($product, $this->products))) {
+            unset($this->products[$key]);
         }
     }
 
