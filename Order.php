@@ -1,5 +1,4 @@
 <?php
-
 class Order {
     private int $id;
     private array $products;
@@ -16,7 +15,13 @@ class Order {
         $this->id = rand();
 
         $this->products = $products;
+        if ($customerName == "David Robert") {
+            throw new ErrorException("Vous êtes banni et ne pouvez commander !");
+        }
         $this->customerName = $customerName;
+        if (count($products) > 5) {
+            throw new ErrorException("La commande ne peut excéder 5 articles !");
+        }
         $this->totalPrice = count($products) * 5;
 
         echo "Commande {$this->id} créée !";
@@ -25,4 +30,4 @@ class Order {
     
 }
 
-$order = new Order('Jean Pierre', ['Casque', 'Téléphone']);
+$order = new Order('David Robert', ['Casque', 'Téléphone', 'a', 'b', 'c']);
