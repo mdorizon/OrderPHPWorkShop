@@ -28,11 +28,19 @@ class Order {
         echo "Commande {$this->id} créée !";
     }
 
+    public function removeProduct($product) {
+        if (in_array($product, $this->products)) {
+            unset($this->products[array_search($product, $this->products)]);
+        }
+    }
+
     
 }
 
 try {
-    $order = new Order('David Robert', ['Casque', 'Téléphone', 'a', 'b', 'c']);
+    $order = new Order('David Roberto', ['Casque', 'Téléphone', 'a', 'b', 'c']);
 } catch(Exception $error) {
     echo $error->getMessage();
 }
+
+$order->removeProduct('Casque');
