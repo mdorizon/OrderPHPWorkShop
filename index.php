@@ -59,4 +59,16 @@ class VendorMachine {
 
 $vendor_machine_1 = new VendorMachine();
 $vendor_machine_1->shootWithFoot();
+
+class Order {
+    private array $products;
+    private float $totalPrice;
+    private int $id;
+    private string $shippingMethod;
+    private string $customerName;
+    private datetime $createdAt;
+    private string $status;
+
+    
+}
 ?>
