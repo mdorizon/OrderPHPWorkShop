@@ -14,16 +14,17 @@ class Order {
         $this->createdAt = new DateTime();
         $this->id = rand();
 
+        if (count($products) > 5) {
+            throw new ErrorException("La commande ne peut excéder 5 articles !");
+        }
         $this->products = $products;
         if ($customerName == "David Robert") {
             throw new ErrorException("Vous êtes banni et ne pouvez commander !");
         }
         $this->customerName = $customerName;
-        if (count($products) > 5) {
-            throw new ErrorException("La commande ne peut excéder 5 articles !");
-        }
+        
         $this->totalPrice = count($products) * 5;
-
+        
         echo "Commande {$this->id} créée !";
     }
 
