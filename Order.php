@@ -31,4 +31,8 @@ class Order {
     
 }
 
-$order = new Order('David Robert', ['Casque', 'Téléphone', 'a', 'b', 'c']);
+try {
+    $order = new Order('David Robert', ['Casque', 'Téléphone', 'a', 'b', 'c']);
+} catch(Exception $error) {
+    echo $error->getMessage();
+}
