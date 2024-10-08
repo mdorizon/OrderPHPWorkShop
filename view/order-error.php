@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Problème dans la commande</title>
+        <title>Erreur</title>
     </head>
     <body>
         <header>
