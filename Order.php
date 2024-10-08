@@ -1,5 +1,11 @@
 <?php
 class Order {
+
+    public static $CART_STATUS = 'CART';
+    public static $SHIPPING_ADDRESS_SET_STATUS = 'SHIPPING_ADDRESS_SET';
+    public static $SHIPPING_METHOD_SET_STATUS = 'SHIPPING_METHOD_SET';
+    public static $PAID_STATUS = 'PAID';
+
     private int $id;
     private array $products;
     private float $totalPrice;
@@ -12,7 +18,7 @@ class Order {
     private ?string $shippingCountry;
     
     public function __construct(string $customerName, array $products) {
-        $this->status = "CART";
+        $this->status = $this::$CART_STATUS;
         $this->createdAt = new DateTime();
         $this->id = rand();
 
@@ -45,7 +51,7 @@ class Order {
         if (count($this->products) >= 5) {
             throw new ErrorException("La commande ne peut excéder 5 articles !");
         }
-        if ($this->status !== "CART") {
+        if ($this->status !== $this::$CART_STATUS) {
             throw new ErrorException("Votre commande n'est pas en status CART !");
         }
         array_push($this->products, $product);
@@ -56,7 +62,7 @@ class Order {
     }
 
     public function setShippingAddress(string $address, string $city, string $country): void {
-        if ($this->status !== "CART") {
+        if ($this->status !== $this::$CART_STATUS) {
             throw new ErrorException("Vous ne pouvez plus modifier l'adresse de livraison !");
         }
         if (!in_array(strtolower($country), ["france", "belgique", "luxembourg"])) {
@@ -66,11 +72,11 @@ class Order {
         $this->shippingCity = $city;
         $this->shippingCountry = $country;
         
-        $this->status = 'SHIPPING_ADDRESS_SET';
+        $this->status = $this::$SHIPPING_ADDRESS_SET_STATUS;
     }
 
     public function setShippingMethod(string $shippingMethod): void {
-        if ($this->status !== "SHIPPING_ADDRESS_SET") {
+        if ($this->status !== $this::$SHIPPING_ADDRESS_SET_STATUS) {
             throw new ErrorException("Vous devez d'abord saisir une adresse !");
         }
         if (!in_array(strtolower($shippingMethod), ["chronopost express", "point relais", "domicile"])) {
@@ -80,14 +86,14 @@ class Order {
             $this->totalPrice += 5;
         }
         $this->shippingMethod = $shippingMethod;
-        $this->status = 'SHIPPING_METHOD_SET';
+        $this->status = $this::$SHIPPING_METHOD_SET_STATUS;
     }
 
     public function payCart(): void {
-        if ($this->status !== "SHIPPING_METHOD_SET") {
+        if ($this->status !== $this::$SHIPPING_METHOD_SET_STATUS) {
             throw new ErrorException("Vous devez d'abord saisir une méthode de livraison !");
         }
-        $this->status = "PAID";
+        $this->status = $this::$PAID_STATUS;
         echo "Votre paiement à bien été effectué, votre commande est maintenant en status : " . $this->status;
     }
 
