@@ -26,8 +26,6 @@ class Order {
         $this->customerName = $customerName;
         
         $this->countTotalPrice();
-
-        $this->shippingAddress = "";
         
         echo "Commande {$this->id} créée !";
     }
@@ -43,6 +41,9 @@ class Order {
     public function addProduct(string $product): void {
         if (in_array($product, $this->products)) {
             throw new ErrorException("Cet article est déjà dans le panier !");
+        }
+        if (count($this->products) == 5) {
+            throw new ErrorException("La commande ne peut excéder 5 articles !");
         }
         if ($this->status !== "CART") {
             throw new ErrorException("Votre commande n'est pas en status CART !");
@@ -64,16 +65,29 @@ class Order {
         $this->shippingAddress = $address;
         $this->shippingCity = $city;
         $this->shippingCountry = $country;
+        
+        $this->status = 'SHIPPING_ADDRESS_SET';
     }
 
     public function shippingMethodChoice($shippingMethod): void {
-        if($this->shippingAddress == "") {
-            throw new ErrorException("Vous devez d'abord saisir une adresse.");
+        if ($this->status !== "SHIPPING_ADDRESS_SET") {
+            throw new ErrorException("Vous devez d'abord saisir une adresse !");
         }
         if($shippingMethod == "chronopost Express") {
             $this->totalPrice += 5;
         }
         $this->shippingMethod = $shippingMethod;
+
+        $this->status = 'SHIPPING_METHOD_SET';
+    }
+
+    public function payCart(): void {
+        if ($this->status !== "SHIPPING_METHOD_SET") {
+            throw new ErrorException("Vous devez d'abord saisir une méthode de livraison !");
+        }
+        $this->status = "PAID";
+
+        echo "Votre paiement à bien été effectué, votre commande est maintenant en status : " . $this->status;
     }
 
     public function listProducts(): void {
@@ -87,18 +101,18 @@ class Order {
 }
 
 try {
-    $order = new Order('David Roberto', ['Casque', 'Téléphone', 'a', 'b', 'c']);
+    $order = new Order('David Roberto', ['Casque', 'Téléphone', 'b', 'c']);
 } catch(Exception $error) {
     echo $error->getMessage();
 }
 
 // $order->removeProduct('Casque');
 
-// try {
-//     $order->addProduct('g');
-// } catch(Exception $error) {
-//     echo $error->getMessage();
-// }
+try {
+    $order->addProduct('g');
+} catch(Exception $error) {
+    echo $error->getMessage();
+}
 
 try {
     $order->addressChoice("test", "ville", "France");
@@ -112,7 +126,4 @@ try {
     echo $error->getMessage();
 }
 
-// Payer la commande
-// règles métier :
-// une commande ne peux pas être payée, si la méthode de livraison n'a pas eté remplie
-// Status possibles : "CART", "SHIPPING_ADDRESS_SET", "SHIPPING_METHOD_SET"  et "PAID"
+$order->payCart();
