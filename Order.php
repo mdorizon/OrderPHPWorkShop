@@ -117,31 +117,3 @@ class Order {
         return count($this->products) * Order::$UNIQUE_PRODUCT_PRICE;
     }
 }
-
-try {
-    $order = new Order('David Roberto', ['Casque', 'Téléphone', 'b', 'c']);
-} catch(Exception $error) {
-    echo $error->getMessage();
-}
-
-// $order->removeProduct('Casque');
-
-try {
-    $order->addProduct('g');
-} catch(Exception $error) {
-    echo $error->getMessage();
-}
-
-try {
-    $order->setShippingAddress("test", "ville", "France");
-} catch(Exception $error) {
-    echo $error->getMessage();
-}
-
-try {
-    $order->setShippingMethod("chronopost Express");
-} catch(Exception $error) {
-    echo $error->getMessage();
-}
-
-$order->payCart();
