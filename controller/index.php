@@ -5,8 +5,10 @@ require_once '../model/Order.php';
 try {
     $order = new Order('Jean Pierre', ['Iphone', 'Chaise']);
 
-    echo "<html><body> Commande créée </body></html>";
+    require_once '../view/order-created.php';
 
 } catch (Exception $e) {
-    echo '<html><body><p>' . $e->getMessage() . '</p></body></html>';
+
+    require_once '../view/order-error.php';
+    
 }

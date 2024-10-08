@@ -39,8 +39,6 @@ class Order {
         $this->customerName = $customerName;
         
         $this->totalPrice = $this->calculateTotalCart();
-        
-        echo "Commande {$this->id} créée !";
     }
 
     public function removeProduct(string $product): void {
