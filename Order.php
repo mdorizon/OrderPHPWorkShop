@@ -52,6 +52,18 @@ class Order {
         echo " Total : " . $this->totalPrice . "€";
     }
 
+    public function addressChoice($address, $city, $country): void {
+        if (!in_array(strtolower($country), ["france", "belgique", "luxembourg"])) {
+            throw new ErrorException("Votre pays de livraison n'est pas disponible !");
+        }
+        if ($this->status !== "CART") {
+            throw new ErrorException("Votre commande n'est pas en status CART !");
+        }
+        $this->shippingAddress = $address;
+        $this->shippingCity = $city;
+        $this->shippingCountry = $country;
+    }
+
     public function listProducts(): void {
         $productAsString = implode(',', $this->products);
         echo "Liste des produits : {$productAsString}";
@@ -60,8 +72,6 @@ class Order {
     protected function countTotalPrice(): void {
         $this->totalPrice = count($this->products) * 5;
     }
-
-    
 }
 
 try {
@@ -72,17 +82,17 @@ try {
 
 // $order->removeProduct('Casque');
 
-try {
-    $order->addProduct('g');
-} catch(Exception $error) {
-    echo $error->getMessage();
-}
+// try {
+//     $order->addProduct('g');
+// } catch(Exception $error) {
+//     echo $error->getMessage();
+// }
 
-
-// Choix de l'adresse de livraison
-// règles métier :
-// doit être en france, belgique ou luxembourg
-// l'adresse de livraison ne peux pas être renseignée, si la commande n'est pas en statut "CART"
+// try {
+//     $order->addressChoice("test", "ville", "France");
+// } catch(Exception $error) {
+//     echo $error->getMessage();
+// }
 
 // Choix de la méthode de livraison
 // règles métier :
