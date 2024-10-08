@@ -42,7 +42,7 @@ class Order {
         if (in_array($product, $this->products)) {
             throw new ErrorException("Cet article est déjà dans le panier !");
         }
-        if (count($this->products) == 5) {
+        if (count($this->products) >= 5) {
             throw new ErrorException("La commande ne peut excéder 5 articles !");
         }
         if ($this->status !== "CART") {
@@ -55,12 +55,12 @@ class Order {
         echo " Total : " . $this->totalPrice . "€";
     }
 
-    public function addressChoice($address, $city, $country): void {
+    public function setShippingAddress(string $address, string $city, string $country): void {
+        if ($this->status !== "CART") {
+            throw new ErrorException("Vous ne pouvez plus modifier l'adresse de livraison !");
+        }
         if (!in_array(strtolower($country), ["france", "belgique", "luxembourg"])) {
             throw new ErrorException("Votre pays de livraison n'est pas disponible !");
-        }
-        if ($this->status !== "CART") {
-            throw new ErrorException("Votre commande n'est pas en status CART !");
         }
         $this->shippingAddress = $address;
         $this->shippingCity = $city;
@@ -69,15 +69,17 @@ class Order {
         $this->status = 'SHIPPING_ADDRESS_SET';
     }
 
-    public function shippingMethodChoice($shippingMethod): void {
+    public function setShippingMethod(string $shippingMethod): void {
         if ($this->status !== "SHIPPING_ADDRESS_SET") {
             throw new ErrorException("Vous devez d'abord saisir une adresse !");
         }
-        if($shippingMethod == "chronopost Express") {
+        if (!in_array(strtolower($shippingMethod), ["chronopost express", "point relais", "domicile"])) {
+            throw new ErrorException("Votre méthode de livraison n'est pas valide !");
+        }
+        if(strtolower($shippingMethod) == "chronopost express") {
             $this->totalPrice += 5;
         }
         $this->shippingMethod = $shippingMethod;
-
         $this->status = 'SHIPPING_METHOD_SET';
     }
 
@@ -86,7 +88,6 @@ class Order {
             throw new ErrorException("Vous devez d'abord saisir une méthode de livraison !");
         }
         $this->status = "PAID";
-
         echo "Votre paiement à bien été effectué, votre commande est maintenant en status : " . $this->status;
     }
 
@@ -115,13 +116,13 @@ try {
 }
 
 try {
-    $order->addressChoice("test", "ville", "France");
+    $order->setShippingAddress("test", "ville", "France");
 } catch(Exception $error) {
     echo $error->getMessage();
 }
 
 try {
-    $order->shippingMethodChoice("chronopost Express");
+    $order->setShippingMethod("chronopost Express");
 } catch(Exception $error) {
     echo $error->getMessage();
 }
