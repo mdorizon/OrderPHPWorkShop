@@ -38,17 +38,21 @@ class Order {
         }
         $this->customerName = $customerName;
         
-        $this->countTotalPrice();
+        $this->totalPrice = $this->calculateTotalCart();
         
         echo "Commande {$this->id} créée !";
     }
 
     public function removeProduct(string $product): void {
+        $this->removeProductFromList($product);
+        $this->totalPrice = $this->calculateTotalCart();
+        $this->listProducts();
+    }
+
+    public function removeProductFromList(string $product): void {
         if (($key = array_search($product, $this->products)) !== false) {
             unset($this->products[$key]);
         }
-
-        $this->listProducts();
     }
 
     public function addProduct(string $product): void {
@@ -63,7 +67,7 @@ class Order {
         }
         array_push($this->products, $product);
 
-        $this->countTotalPrice();
+        $this->totalPrice = $this->calculateTotalCart();
         $this->listProducts();
         echo " Total : " . $this->totalPrice . "€";
     }
@@ -90,7 +94,7 @@ class Order {
             throw new ErrorException("Votre méthode de livraison n'est pas valide !");
         }
         if(in_array(strtolower($shippingMethod), Order::$PAID_SHIPPING_METHODS)) {
-            $this->totalPrice += Order::$PAID_SHIPPING_METHODS_COST;
+            $this->totalPrice = $this->calculateTotalCart() + Order::$PAID_SHIPPING_METHODS_COST;
         }
         $this->shippingMethod = $shippingMethod;
         $this->status = Order::$SHIPPING_METHOD_SET_STATUS;
@@ -109,8 +113,8 @@ class Order {
         echo "Liste des produits : {$productAsString}";
     }
 
-    protected function countTotalPrice(): void {
-        $this->totalPrice = count($this->products) * Order::$UNIQUE_PRODUCT_PRICE;
+    private function calculateTotalCart(): float {
+        return count($this->products) * Order::$UNIQUE_PRODUCT_PRICE;
     }
 }
 
