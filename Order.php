@@ -28,10 +28,14 @@ class Order {
         echo "Commande {$this->id} créée !";
     }
 
-    public function removeProduct(string $product) {
-        if (($key = array_search($product, $this->products))) {
+    public function removeProduct(string $product): void {
+        if (($key = array_search($product, $this->products)) !== false) {
             unset($this->products[$key]);
         }
+
+        $productAsString = implode(',', $this->products);
+
+        echo "Liste des produits : {$productAsString}";
     }
 
     
