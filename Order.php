@@ -26,6 +26,8 @@ class Order {
         $this->customerName = $customerName;
         
         $this->countTotalPrice();
+
+        $this->shippingAddress = "";
         
         echo "Commande {$this->id} créée !";
     }
@@ -64,6 +66,16 @@ class Order {
         $this->shippingCountry = $country;
     }
 
+    public function shippingMethodChoice($shippingMethod): void {
+        if($this->shippingAddress == "") {
+            throw new ErrorException("Vous devez d'abord saisir une adresse.");
+        }
+        if($shippingMethod == "chronopost Express") {
+            $this->totalPrice += 5;
+        }
+        $this->shippingMethod = $shippingMethod;
+    }
+
     public function listProducts(): void {
         $productAsString = implode(',', $this->products);
         echo "Liste des produits : {$productAsString}";
@@ -88,16 +100,18 @@ try {
 //     echo $error->getMessage();
 // }
 
-// try {
-//     $order->addressChoice("test", "ville", "France");
-// } catch(Exception $error) {
-//     echo $error->getMessage();
-// }
+try {
+    $order->addressChoice("test", "ville", "France");
+} catch(Exception $error) {
+    echo $error->getMessage();
+}
 
-// Choix de la méthode de livraison
-// règles métier :
-// sélection parmi chronopost Express (+5e) , point relais et domicile
-// la méthode de livraison ne peut pas être renseignée, si l'adresse n'est pas remplie
+try {
+    $order->shippingMethodChoice("chronopost Express");
+} catch(Exception $error) {
+    echo $error->getMessage();
+}
+
 // Payer la commande
 // règles métier :
 // une commande ne peux pas être payée, si la méthode de livraison n'a pas eté remplie
