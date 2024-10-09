@@ -12,7 +12,7 @@
         
             <form method="POST" action="../controller/create-order.php">
                 <label for="customerName">Nom du client</label>
-                <input type="text" id="customerName" name="customerName" required>
+                <input type="text" id="customerName" name="customerName" required pattern=".*\S.*.{1,98}">
                 <br>
                 <label for="product">Produit</label>
                 <select id="product" name="products[]" multiple>
