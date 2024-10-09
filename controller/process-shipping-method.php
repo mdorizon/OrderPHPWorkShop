@@ -4,24 +4,30 @@ require_once '../model/Order.php';
 
 session_start();
 
-if (isset($_SESSION['order'])) {
+if (!isset($_SESSION['order'])) {
+    require_once '../view/404.php';
+    return;
+}
 
-    try {
-        $order = $_SESSION['order'];
+try {
+    $order = $_SESSION['order'];
 
-        $shippingMethod = $_POST['shippingMethod'];
+    if (!isPostDataValid()) {
+		$errorMessage = "Merci de remplir les champs. J'ai pas fait tout ça pour rien.";
+		
+		require_once '../view/order-error.php';
+		return;
+	}
 
-        $order->setShippingMethod($shippingMethod);
+    $shippingMethod = $_POST['shippingMethod'];
 
-        $_SESSION['order'] = $order;
+    $order->setShippingMethod($shippingMethod);
 
-        require_once '../view/shipping-method-added.php';
+    $_SESSION['order'] = $order;
 
-    } catch (Exception $e) {
-        $errorMessage = $e->getMessage();
-        require_once '../view/order-error.php';
-    }
+    require_once '../view/shipping-method-added.php';
 
-} else {
-	require_once '../view/404.php';
+} catch (Exception $e) {
+    $errorMessage = $e->getMessage();
+    require_once '../view/order-error.php';
 }

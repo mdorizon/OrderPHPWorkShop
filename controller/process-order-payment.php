@@ -10,9 +10,10 @@ if (isset($_SESSION['order'])) {
         $order = $_SESSION['order'];
 
         $order->payCart();
+        
+        $_SESSION['order'] = $order;
 
         require_once '../view/order-paid.php';
-
     } catch (Exception $e) {
         $errorMessage = $e->getMessage();
         require_once '../view/order-error.php';
