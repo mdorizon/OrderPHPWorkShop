@@ -1,14 +1,7 @@
-<html>
-    <head>
-        <title>Erreur</title>
-    </head>
-    <body>
-        <header>
-            <h1>Le Eshop au top</h1>
-        </header>
+<?php require_once('../view/partials/header.php'); ?>
+	
+	<main>
+		<p>Il y a eu une erreur : <?php echo $errorMessage; ?></p>
+	</main>
 
-        <main>
-            <p>Il y a eu une erreur : <?php $e->getMessage(); ?></p>
-        </main>
-    </body>
-</html>
+<?php require_once('../view/partials/footer.php'); ?>

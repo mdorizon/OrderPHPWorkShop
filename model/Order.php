@@ -25,6 +25,17 @@ class Order {
     private ?string $shippingCountry;
     
     public function __construct(string $customerName, array $products) {
+        // regex
+        if (!preg_match('/^[a-zA-Z0-9\s-]{2,50}$/', $customerName)) {
+            throw new ErrorException('Nom invalide');
+        }
+        if (!count($products) >= 1) {
+            throw new ErrorException('Vous devez ajouter au moins un produit !');
+        }
+        // if (!preg_match('/^[a-zA-Z0-9\s-]{2,50}$/', $products)) {
+        //     throw new ErrorException('Nom invalide');
+        // }
+
         $this->status = Order::$CART_STATUS;
         $this->createdAt = new DateTime();
         $this->id = rand();
@@ -32,12 +43,6 @@ class Order {
         if (count($products) > Order::$MAX_PRODUCT_BY_ORDER) {
             throw new ErrorException("La commande ne peut excéder " . Order::$MAX_PRODUCT_BY_ORDER ." articles !");
         }
-        // regex
-        if (!preg_match('/^[a-zA-Z0-9\s-]{2,50}$/', $customerName)) {
-            throw new ErrorException('Nom invalide');
-        }
-
-
         $this->products = $products;
         if (in_array($customerName, Order::$BLACKLISTED_CUSTOMERS)) {
             throw new ErrorException("Vous êtes banni et ne pouvez commander !");
