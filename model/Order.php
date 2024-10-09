@@ -55,7 +55,6 @@ class Order {
     public function removeProduct(string $product): void {
         $this->removeProductFromList($product);
         $this->totalPrice = $this->calculateTotalCart();
-        $this->listProducts();
     }
 
     public function removeProductFromList(string $product): void {
@@ -77,8 +76,6 @@ class Order {
         array_push($this->products, $product);
 
         $this->totalPrice = $this->calculateTotalCart();
-        $this->listProducts();
-        echo " Total : " . $this->totalPrice . "€";
     }
 
     public function setShippingAddress(string $address, string $city, string $country): void {
@@ -125,12 +122,10 @@ class Order {
             throw new ErrorException("Vous devez d'abord saisir une méthode de livraison !");
         }
         $this->status = Order::$PAID_STATUS;
-        echo "Votre paiement à bien été effectué, votre commande est maintenant en status : " . $this->status;
     }
 
-    public function listProducts(): void {
-        $productAsString = implode(',', $this->products);
-        echo "Liste des produits : {$productAsString}";
+    public function getProducts(): array {
+        return $this->products;
     }
 
     private function calculateTotalCart(): float {
