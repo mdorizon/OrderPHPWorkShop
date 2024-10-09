@@ -8,7 +8,7 @@
         </header>
 
         <main>
-            <p>Il y a eu une erreur : <?php $e->getMessage() ?></p>
+            <p>Il y a eu une erreur : <?php $e->getMessage(); ?></p>
         </main>
     </body>
 </html>

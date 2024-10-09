@@ -32,6 +32,12 @@ class Order {
         if (count($products) > Order::$MAX_PRODUCT_BY_ORDER) {
             throw new ErrorException("La commande ne peut excéder " . Order::$MAX_PRODUCT_BY_ORDER ." articles !");
         }
+        // regex
+        if (!preg_match('/^[a-zA-Z0-9\s-]{2,50}$/', $customerName)) {
+            throw new ErrorException('Nom invalide');
+        }
+
+
         $this->products = $products;
         if (in_array($customerName, Order::$BLACKLISTED_CUSTOMERS)) {
             throw new ErrorException("Vous êtes banni et ne pouvez commander !");
@@ -71,6 +77,17 @@ class Order {
     }
 
     public function setShippingAddress(string $address, string $city, string $country): void {
+        //regex
+        if (!preg_match('/^[a-zA-Z0-9\s-]{2,50}$/', $address)) {
+            throw new ErrorException('Adresse invalide');
+        }
+        if (!preg_match('/^[a-zA-Z0-9\s-]{2,50}$/', $city)) {
+            throw new ErrorException('Ville invalide');
+        }
+        if (!preg_match('/^[a-zA-Z0-9\s-]{2,50}$/', $country)) {
+            throw new ErrorException('Pays invalide');
+        }
+
         if ($this->status !== Order::$CART_STATUS) {
             throw new ErrorException("Vous ne pouvez plus modifier l'adresse de livraison !");
         }
