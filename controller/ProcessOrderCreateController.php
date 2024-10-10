@@ -1,10 +1,11 @@
 <?php
-require_once './model/Order.php';
+require_once './model/entity/Order.php';
+require_once './model/repository/OrderRepository.php';
 
 class CreateOrderController {
 
 	public function createOrder() {
-		session_start();
+		$orderRepository = new OrderRepository();
 
 		try {
 			if (!$this->isPostDataValid()) {
@@ -18,7 +19,7 @@ class CreateOrderController {
 			
 			$order = new Order($customerName, $products);
 
-			$this->persistOrder($order);
+			$orderRepository->persist($order);
 
 			require_once './view/order-created.php';
 
@@ -29,9 +30,5 @@ class CreateOrderController {
 	}
 	private function isPostDataValid(): bool {
 		return isset($_POST['customerName']) && isset($_POST['products']);
-	}
-
-	private function persistOrder(Order $order): void {
-		$_SESSION['order'] = $order;
 	}
 }

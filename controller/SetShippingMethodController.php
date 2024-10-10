@@ -1,11 +1,14 @@
 <?php
 
+require_once './model/repository/OrderRepository.php';
+
 class SetShippingMethodController {
 
     function setShippingMethod() {
-        session_start();
-        
-        if (!isset($_SESSION['order'])) {
+        $orderRepository = new OrderRepository();
+        $order = $orderRepository->find();
+
+        if (!$order) {
             require_once './view/404.php';
             return;
         }

@@ -1,26 +1,26 @@
 <?php
-require_once './model/Order.php'; 
+require_once './model/entity/Order.php';
+require_once './model/repository/OrderRepository.php';
 
 class ProcessShippingAddressController {
 
     function processShippingAddress() {
-        session_start();
-        
-        if (!isset($_SESSION['order'])) {
+        $orderRepository = new OrderRepository();
+        $order = $orderRepository->find();
+
+        if (!$order) {
             require_once './view/404.php';
             return;
         }
         
         try {
-            $order = $_SESSION['order'];
-        
             $shippingCountry = $_POST['shippingCountry'];
             $shippingCity = $_POST['shippingCity'];
             $shippingAdress = $_POST['shippingAdress'];
         
             $order->setShippingAddress($shippingAdress, $shippingCity, $shippingCountry);
         
-            $_SESSION['order'] = $order;
+            $orderRepository->persist($order);
         
             require_once './view/shipping-address-added.php';
         

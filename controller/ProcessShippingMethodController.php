@@ -1,19 +1,19 @@
 <?php
-require_once './model/Order.php'; 
+require_once './model/entity/Order.php';
+require_once './model/repository/OrderRepository.php';
 
 class ProcessShippingMethodController {
 
     function processShippingMethod() {
-        session_start();
-        
-        if (!isset($_SESSION['order'])) {
+        $orderRepository = new OrderRepository();
+        $order = $orderRepository->find();
+
+        if (!$order) {
             require_once './view/404.php';
             return;
         }
         
         try {
-            $order = $_SESSION['order'];
-        
             if (!$this->isPostDataValid()) {
                 $errorMessage = "Merci de remplir les champs. J'ai pas fait tout ça pour rien.";
                 
@@ -25,7 +25,7 @@ class ProcessShippingMethodController {
         
             $order->setShippingMethod($shippingMethod);
         
-            $_SESSION['order'] = $order;
+            $orderRepository->persist($order);
         
             require_once './view/shipping-method-added.php';
         
