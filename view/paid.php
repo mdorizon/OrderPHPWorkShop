@@ -1,4 +1,4 @@
-<?php require_once('../view/partials/header.php'); ?>
+<?php require_once('./view/partials/header.php'); ?>
 	
 	<main>
 		<p>Votre commande à bien été enregistrée voici ce que vous avez commandé :</p>
@@ -9,4 +9,4 @@
 	</main>
 
 
-<?php require_once('../view/partials/footer.php'); ?>
+<?php require_once('./view/partials/footer.php'); ?>

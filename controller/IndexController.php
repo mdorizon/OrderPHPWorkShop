@@ -1,12 +1,7 @@
 <?php
-
-
 class IndexController {
 
-	public function index(): void {
+	public function index() {
 		require_once './view/home.php';
 	}
-
 }
-
-

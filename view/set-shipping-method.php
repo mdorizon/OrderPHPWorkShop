@@ -1,10 +1,10 @@
-<?php require_once('../view/partials/header.php'); ?>
+<?php require_once('./view/partials/header.php'); ?>
 	
 	<main>
 		<p>Remplissez la méthode de livraison : </p>
 
 
-		<form method="POST" action="../controller/process-shipping-method.php">
+		<form method="POST" action="http://localhost:8888/workshopmethodo/process-shipping-method">
 
             <select id="method" name="shippingMethod">
 				<option value="chronopost express">chronopost express</option>
@@ -16,4 +16,4 @@
 		</form>
 	</main>
 
-<?php require_once('../view/partials/footer.php'); ?>
+<?php require_once('./view/partials/footer.php'); ?>
