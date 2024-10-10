@@ -2,6 +2,6 @@
 class IndexController {
 
 	public function index() {
-		require_once './view/home.php';
+		require_once './order/view/home.php';
 	}
 }

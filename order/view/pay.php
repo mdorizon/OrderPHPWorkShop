@@ -1,4 +1,4 @@
-<?php require_once('./view/partials/header.php'); ?>
+<?php require_once('./order/view/partials/header.php'); ?>
 	
 	<main>
 		<p> Souhaiter vous payer la commande ? </p>
@@ -9,4 +9,4 @@
 		</form>
 	</main>
 
-<?php require_once('./view/partials/footer.php'); ?>
+<?php require_once('./order/view/partials/footer.php'); ?>
