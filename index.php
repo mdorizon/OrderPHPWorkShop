@@ -9,7 +9,6 @@ require_once './order/controller/ProcessShippingMethodController.php';
 require_once './order/controller/SetShippingAddressController.php';
 require_once './order/controller/SetShippingMethodController.php';
 require_once './product/controller/CreateProductController.php';
-require_once './product/controller/ProcessCreateProductController.php';
 require_once './product/controller/ListProductsController.php';
 
 $requestUri = $_SERVER['REQUEST_URI'];
