@@ -1,26 +1,30 @@
 <?php 
 
 class Product {
-    public static $DEFAULT_PRICE = 2;
+    public static $DEFAULT_PRICE = 2.0;
+    public static $DEFAULT_IMAGE = "https://m.media-amazon.com/images/I/71S3dsGafhL._AC_SX679_.jpg";
     private int $id;
     private string $title;
     private float $price;
     private string $description;
+    private string $image;
     private bool $isActive;
     private DateTime $createdAt;
 
-    public function __construct(string $title, float $price = null, string $description = '', bool $isActive = false) {
+    public function __construct(string $title, string $image = null, float $price = null, string $description = '', bool $isActive = false) {
         // verify $title
         if (!preg_match('/^[a-zA-Z0-9\s-]{3,100}$/', $title)) {
             throw new ErrorException('Titre invalide !');
         }
         // verify $price
-        if ($price < 1 || $price > 500 ) {
+        $price ??= Product::$DEFAULT_PRICE;
+        if ($price < 1.0 || $price > 500.0 ) {
             throw new ErrorException('Le prix doit être entre 1€ et 500€ !');
         }
-        $this->price = $price ?? Product::$DEFAULT_PRICE;
+        $image ??= Product::$DEFAULT_IMAGE;
         
         $this->title = $title;
+        $this->image = $image;
         $this->price = $price;
         $this->description = $description;
         $this->isActive = $isActive;
@@ -38,8 +42,12 @@ class Product {
         return $this->description;
     }
 
-    public function getPrice(): string {
+    public function getPrice(): float {
         return $this->price;
+    }
+
+    public function getImage(): string {
+        return $this->image;
     }
 
     public function getIsActive(): bool {

@@ -7,11 +7,12 @@ class ProcessCreateProductController {
 	public function createProduct() {
 		try {
 			$title = $_POST['title'];
-			$price = $_POST['price'];
+			$price = ($_POST['price'] == "") ? null : $_POST['price'];
+			$image = filter_var($_POST['image'], FILTER_VALIDATE_URL) ? $_POST['image'] : Product::$DEFAULT_IMAGE;
 			$description = $_POST['description'];
 			$isActive = $_POST['isActive'] ?? false;
 			
-			$product = new Product($title, $price, $description, $isActive);
+			$product = new Product($title, $image, $price, $description, $isActive);
 
 			$productRepository = new ProductRepository();
             $productRepository->persist($product);

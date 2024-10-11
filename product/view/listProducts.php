@@ -14,7 +14,7 @@
             <?php if ($product->getIsActive()) : ?>
             <div class="col-lg-3 col-md-6 mb-4 d-flex">
                 <div class="card" style="width: 100%; border: 1px solid #e0e0e0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
-                    <img src="https://m.media-amazon.com/images/I/71S3dsGafhL._AC_SX679_.jpg" class="card-img-top" alt="Product Image" style="padding: 15px;">
+                    <img <?= 'src="' . $product->getImage() . '"' ?> class="card-img-top" alt="Product Image" style="padding: 15px;">
                     <div class="card-body d-flex flex-column">
                         <div>
                             <h5 class="card-title text-center" style="font-weight: bold;"><?= $product->getTitle(); ?></h5>
