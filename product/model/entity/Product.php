@@ -14,13 +14,19 @@ class Product {
     public function __construct(string $title, string $image = null, float $price = null, string $description = '', bool $isActive = false) {
         // verify $title
         if (!preg_match('/^[a-zA-Z0-9\s-]{3,100}$/', $title)) {
-            header('Location: http://localhost:8888/workshopmethodo/create-product?&error=Veuillez entrer un titre correct !');
+            $success = null;
+			$error = "Veuillez entrer un titre correct !";
+
+			require_once './product/view/createProduct.php';
             die;
         }
         // verify $price
         $price ??= Product::$DEFAULT_PRICE;
         if ($price < 1.0 || $price > 500.0 ) {
-            header('Location: http://localhost:8888/workshopmethodo/create-product?&error=Le prix doit être entre 1€ et 500€ !');
+            $success = null;
+			$error = "Le prix doit être entre 1€ et 500€ !";
+
+			require_once './product/view/createProduct.php';
             die;
         }
         $image ??= Product::$DEFAULT_IMAGE;

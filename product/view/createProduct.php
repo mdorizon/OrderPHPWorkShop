@@ -3,7 +3,7 @@
 <main class="d-flex justify-content-center vh-80 mt-5">
 	<div class="card shadow-sm p-4" style="width: 100%; max-width: 500px; height: fit-content;">
 		<h2 class="text-center mb-4">Créer un produit</h2>
-        <form method="POST" class="mb-4" action="http://localhost:8888/workshopmethodo/process-create-product">
+        <form method="POST" class="mb-4" action="http://localhost:8888/workshopmethodo/create-product">
 			<div class="mb-3">
 				<label for="title" class="form-label">Titre du produit</label>
                 <input type="text" class="form-control" id="title" name="title" placeholder="un titre rapide entre 3 et 100 caractères" required>
@@ -31,15 +31,15 @@
 				
 				<button type="submit" class="btn btn-primary w-100">Créer</button>
 			</form>
-			<?php if(isset($_GET['error'])) : ?>
+			<?php if(isset($error)) : ?>
 				<div class="alert alert-danger">
-					<?php echo htmlspecialchars($_GET['error']); ?>
+					<?php echo htmlspecialchars($error); ?>
 				</div>
 			<?php endif; ?>
 			
-			<?php if(isset($_GET['success'])) : ?>
+			<?php if(isset($success)) : ?>
 				<div class="alert alert-success">
-				<?php echo htmlspecialchars($_GET['success']); ?>
+				<?php echo htmlspecialchars($success); ?>
 				</div>
 			<?php endif; ?>
     </div>

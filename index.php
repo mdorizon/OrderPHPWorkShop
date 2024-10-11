@@ -70,15 +70,9 @@ if ($endUri === "set-shipping-method") {
 
 // Products
 
-if($endUri === "create-product") {
-    $setCreateProductController = new CreateProductController();
-    $setCreateProductController->CreateProduct();
-    return;
-}
-
-if($endUri === "process-create-product") {
-    $createProductController = new ProcessCreateProductController();
-    $createProductController->createProduct();
+if ($endUri === "create-product") {
+    $createProductController = new CreateProductController();
+    $createProductController->CreateProduct();
     return;
 }
 
