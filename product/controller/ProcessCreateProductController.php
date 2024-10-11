@@ -17,11 +17,10 @@ class ProcessCreateProductController {
 			$productRepository = new ProductRepository();
             $productRepository->persist($product);
 
-			require_once './product/view/product-created.php';
-
+			header('Location: http://localhost:8888/workshopmethodo/create-product?&success=Le produit à bien été créé !');
 		} catch (Exception $e) {
 			$errorMessage = $e->getMessage();
-			require_once './product/view/product-error.php';
+			header('Location: http://localhost:8888/workshopmethodo/create-product?&error=' . $errorMessage . ' !');
 		}
 	}
 }

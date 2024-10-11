@@ -2,7 +2,7 @@
 
 class Product {
     public static $DEFAULT_PRICE = 2.0;
-    public static $DEFAULT_IMAGE = "https://m.media-amazon.com/images/I/71S3dsGafhL._AC_SX679_.jpg";
+    public static $DEFAULT_IMAGE = "https://img.freepik.com/vecteurs-libre/salle-conference-vide_529539-71.jpg";
     private int $id;
     private string $title;
     private float $price;
@@ -14,12 +14,14 @@ class Product {
     public function __construct(string $title, string $image = null, float $price = null, string $description = '', bool $isActive = false) {
         // verify $title
         if (!preg_match('/^[a-zA-Z0-9\s-]{3,100}$/', $title)) {
-            throw new ErrorException('Titre invalide !');
+            header('Location: http://localhost:8888/workshopmethodo/create-product?&error=Veuillez entrer un titre correct !');
+            die;
         }
         // verify $price
         $price ??= Product::$DEFAULT_PRICE;
         if ($price < 1.0 || $price > 500.0 ) {
-            throw new ErrorException('Le prix doit être entre 1€ et 500€ !');
+            header('Location: http://localhost:8888/workshopmethodo/create-product?&error=Le prix doit être entre 1€ et 500€ !');
+            die;
         }
         $image ??= Product::$DEFAULT_IMAGE;
         
