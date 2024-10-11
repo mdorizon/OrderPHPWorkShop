@@ -9,10 +9,7 @@ class ProcessCreateProductController {
 			$title = $_POST['title'];
 			$price = $_POST['price'];
 			$description = $_POST['description'];
-			$isActive = $_POST['isActive'];
-			if (is_null($isActive)) {
-				$isActive = false;
-			}
+			$isActive = $_POST['isActive'] ?? false;
 			
 			$product = new Product($title, $price, $description, $isActive);
 

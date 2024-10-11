@@ -8,7 +8,7 @@
 			<br>
 
 			<label for="price">Prix</label>
-            <input type="number" name="price" id="price" min="3" max="500">
+            <input type="number" name="price" id="price" min="3" max="500" step="0.01">
 			<br>
             
 			<label for="description">Description</label>
