@@ -8,12 +8,6 @@ class ListProductsController {
     function listProducts() {
         $productRepository = new ProductRepository();
         $products = $productRepository->findAll();
-
-        if (!$products) {
-            require_once './order/view/404.php';
-            return;
-        }
-        
-        require_once './product/view/listProducts.php';
+        require_once './product/view/list-products.php';
     }
 }

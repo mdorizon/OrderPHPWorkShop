@@ -17,6 +17,6 @@ class ProductRepository {
     }
 
     public function findAll(): array {
-        return $_SESSION['products'];
+        return $_SESSION['products'] ?? [];
     }
 }

@@ -6,7 +6,7 @@
         <form method="POST" class="mb-4" action="http://localhost:8888/workshopmethodo/create-product">
 			<div class="mb-3">
 				<label for="title" class="form-label">Titre du produit</label>
-                <input type="text" class="form-control" id="title" name="title" placeholder="un titre rapide entre 3 et 100 caractères" required>
+                <input type="text" class="form-control" id="title" name="title" placeholder="un titre rapide entre <?= Product::$MIN_TITLE_LENGTH ?> et <?= Product::$MAX_TITLE_LENGTH ?> caractères" required pattern="^[a-zA-Z0-9\s]{<?= Product::$MIN_TITLE_LENGTH ?>,<?= Product::$MAX_TITLE_LENGTH ?>}$">
             </div>
 			
             <div class="mb-3">
@@ -16,7 +16,7 @@
 				
 				<div class="mb-3">
 					<label for="price" class="form-label">Prix</label>
-					<input type="number" class="form-control" name="price" id="price" min="3" max="500" step="0.01" placeholder="2€ par défault !">
+					<input type="number" class="form-control" name="price" id="price" min="<?= Product::$MIN_PRICE ?>" max="<?= Product::$MAX_PRICE ?>" step="0.01" placeholder="<?= Product::$DEFAULT_PRICE ?> € par défault !">
 				</div>
 				
 				<div class="mb-3">
