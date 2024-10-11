@@ -8,6 +8,7 @@
 	</head>
 	<body>
 
+	<?php $orderRepository = new OrderRepository(); $order = $orderRepository->find();?>
 	<header class="bg-light py-3">
 		<div class="container">
 			<h1 class="text-center text-primary font-weight-bold">Le Eshop au top</h1>
@@ -15,25 +16,18 @@
 				<div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
 					<ul class="navbar-nav mr-auto">
 						<li class="nav-item">
-							<a class="nav-link text-dark font-weight-bold" href="http://localhost:8888/workshopmethodo/products-list">Liste des produits</a>
+							<a class="nav-link text-dark font-weight-bold" href="http://localhost:8888/workshopmethodo/">Liste des produits</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link text-dark font-weight-bold" href="http://localhost:8888/workshopmethodo/">Commander</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-dark font-weight-bold" href="http://localhost:8888/workshopmethodo/set-shipping-address">Adresse de livraison</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-dark font-weight-bold" href="http://localhost:8888/workshopmethodo/set-shipping-method">Méthode de livraison</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-dark font-weight-bold" href="http://localhost:8888/workshopmethodo/pay">Payer la commande</a>
-						</li>
-					</ul>
-
-					<ul class="navbar-nav ml-auto">
 						<li class="nav-item">
 							<a class="nav-link text-dark font-weight-bold" href="http://localhost:8888/workshopmethodo/create-product">Créer un produit</a>
+						</li>
+					</ul>
+					<ul class="navbar-nav ml-auto">
+						<li class="nav-item">
+							<a class="nav-link text-dark font-weight-bold" href="http://localhost:8888/workshopmethodo/cart"><i class="fa-solid fa-basket-shopping"></i></a>
+						</li>
+						<li class="nav-item">
+							<p class="nav-link text-dark font-weight-bold">connecté en tant que: <?= $customerName = $order ? $order->getCustomerName() : null; ?></p>
 						</li>
 					</ul>
 				</div>

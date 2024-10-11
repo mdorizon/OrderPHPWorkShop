@@ -1,5 +1,5 @@
 <?php require_once './common/view/partials/header.php'; ?>
-	
+
 	<main>
 		<style>
 			.card {
@@ -10,17 +10,13 @@
 			}
 		</style>
 		<div class="container mt-5">
-			<h1 class="text-center text-primary font-weight-bold mb-5">Remplissez la méthode de livraison : </h1>
-			<form method="POST" class="mb-4" action="http://localhost:8888/workshopmethodo/shipping-method">
+			<h1 class="text-center text-primary font-weight-bold mb-5">Remplissez l'adresse de livraison : </h1>
+			<form method="POST" class="mb-4" action="http://localhost:8888/workshopmethodo/create-order">
 				<div class="mb-3">
-					<label for="shippingCountry" class="form-label">Méthode de livraison</label>
-					<select class="form-control" id="method" name="shippingMethod">
-						<option value="chronopost express">chronopost express</option>
-						<option value="point relais">point relais</option>
-						<option value="domicile">domicile</option>
-					</select>
+					<label for="customerName" class="form-label">nom du client</label>
+					<input type="text" class="form-control" id="customerName" name="customerName" pattern="^[a-zA-Z0-9\s.-]{5,50}$" required>
 				</div>
-				<button type="submit" class="btn btn-secondary btn-lg w-100">Passer au paiement</button>
+				<button type="submit" class="btn btn-secondary btn-lg w-100">Créer le client</button>
 			</form>
 			<?php if(isset($error)) : ?>
 				<div class="alert alert-danger">

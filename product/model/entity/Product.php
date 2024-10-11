@@ -65,4 +65,8 @@ class Product {
     public function getIsActive(): bool {
         return $this->isActive;
     }
+
+    public function getId(): string {
+        return $this->id;
+    }
 }

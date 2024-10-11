@@ -1,6 +1,6 @@
 <?php require_once './common/view/partials/header.php'; ?>
 	
-    <main>
+	<main>
 		<style>
 			.card {
 				height: 100%;
@@ -10,7 +10,7 @@
 			}
 		</style>
 		<div class="container mt-5">
-			<h1 class="text-center text-primary font-weight-bold mb-5">Voici le récapitulatif de votre commande : 0 € (à réparer un jour ;)</h1>
+			<h1 class="text-center text-primary font-weight-bold mb-5">Total du panier : 0 € (à réparer un jour ;)</h1>
 			<div class="row">
 				<?php foreach ($productsInCart as $product) : ?>
 					<div class="col-lg-3 col-md-6 mb-4 d-flex">
@@ -27,11 +27,17 @@
 											<?= $product->getPrice(); ?> €
 										</li>
 									</ul>
+									<div class="d-grid gap-2 mt-3">
+										<a href="#" class="btn btn-danger btn-lg">Retirer du panier</a>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 					<?php endforeach; ?>
+				</div>
+				<div class="d-grid gap-2 mt-3">
+					<a href="http://localhost:8888/workshopmethodo/shipping-address" class="btn btn-secondary btn-lg">Passer à la livraison</a>
 				</div>
 		</div>
 	</main>

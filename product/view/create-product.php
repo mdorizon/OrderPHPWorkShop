@@ -1,4 +1,4 @@
-<?php require_once './order/view/partials/header.php'; ?>
+<?php require_once './common/view/partials/header.php'; ?>
 
 <main class="d-flex justify-content-center vh-80 mt-5">
 	<div class="card shadow-sm p-4" style="width: 100%; max-width: 500px; height: fit-content;">
@@ -45,4 +45,4 @@
     </div>
 </main>
 
-<?php require_once './order/view/partials/footer.php'; ?>
+<?php require_once './common/view/partials/footer.php'; ?>

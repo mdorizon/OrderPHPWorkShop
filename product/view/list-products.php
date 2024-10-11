@@ -1,4 +1,4 @@
-<?php require_once './order/view/partials/header.php'; ?>
+<?php require_once './common/view/partials/header.php'; ?>
 
     <style>
         .card {
@@ -27,7 +27,7 @@
                                 </li>
                             </ul>
                             <div class="d-grid gap-2 mt-3">
-                                <a href="#" class="btn btn-primary btn-lg">Ajouter au panier</a>
+                                <a href="http://localhost:8888/workshopmethodo/add-cart?id=<?= $product->getId(); ?>" class="btn btn-primary btn-lg">Ajouter au panier</a>
                             </div>
                         </div>
                     </div>
@@ -38,4 +38,4 @@
         </div>
     </div>
 
-<?php require_once './order/view/partials/footer.php'; ?>
+<?php require_once './common/view/partials/footer.php'; ?>

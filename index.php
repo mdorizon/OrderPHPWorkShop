@@ -1,15 +1,15 @@
 <?php
 
-require_once './order/controller/IndexController.php';
-require_once './order/controller/ProcessOrderCreateController.php';
+// Common
+require_once './common/controller/IndexController.php';
+// Order
+require_once './order/controller/CreateOrderController.php';
+require_once './order/controller/CartController.php';
+require_once './order/controller/ShippingAddressController.php';
+require_once './order/controller/ShippingMethodController.php';
 require_once './order/controller/PayController.php';
-require_once './order/controller/ProcessPaymentController.php';
-require_once './order/controller/ProcessShippingAddressController.php';
-require_once './order/controller/ProcessShippingMethodController.php';
-require_once './order/controller/SetShippingAddressController.php';
-require_once './order/controller/SetShippingMethodController.php';
+// Product
 require_once './product/controller/CreateProductController.php';
-require_once './product/controller/ListProductsController.php';
 
 $requestUri = $_SERVER['REQUEST_URI'];
 $uri = parse_url($requestUri, PHP_URL_PATH);
@@ -23,60 +23,52 @@ if($endUri === "") {
     return;
 } 
 
-// Order
+// ************//
+//    Order    //
+// ************//
 
+if($endUri === "show-create-order") {
+    $createOrderController = new CreateOrderController();
+    $createOrderController->showCreateOrder();
+    return;
+} 
 if($endUri === "create-order") {
     $createOrderController = new CreateOrderController();
     $createOrderController->createOrder();
     return;
-} 
-
-if ($endUri === "pay") {
+}
+if ($endUri === "shipping-address") {
+    $shippingAddressController = new ShippingAddressController();
+    $shippingAddressController->shippingAddress();
+    return;
+}
+if ($endUri === "shipping-method") {
+    $shippingMethodController = new ShippingMethodController();
+    $shippingMethodController->shippingMethod();
+    return;
+}
+if ($endUri === "payment") {
     $payController = new PayController();
-    $payController->pay();
+    $payController->payment();
+    return;
+}
+if ($endUri === "cart") {
+    $cartController = new CartController();
+    $cartController->showCart();
+    return;
+}
+if ($endUri === "add-cart") {
+    $cartController = new CartController();
+    $cartController->addToCart();
     return;
 }
 
-if ($endUri === "process-payment") {
-    $payController = new ProcessPaymentController();
-    $payController->processPayment();
-    return;
-}
-
-if ($endUri === "process-shipping-address") {
-    $payController = new ProcessShippingAddressController();
-    $payController->processShippingAddress();
-    return;
-}
-
-if ($endUri === "process-shipping-method") {
-    $payController = new ProcessShippingMethodController();
-    $payController->processShippingMethod();
-    return;
-}
-
-if ($endUri === "set-shipping-address") {
-    $payController = new SetShippingAddressController();
-    $payController->setShippingAddress();
-    return;
-}
-
-if ($endUri === "set-shipping-method") {
-    $payController = new SetShippingMethodController();
-    $payController->setShippingMethod();
-    return;
-}
-
-// Products
+// ************//
+//   Products  //
+// ************//
 
 if ($endUri === "create-product") {
     $createProductController = new CreateProductController();
     $createProductController->CreateProduct();
-    return;
-}
-
-if($endUri === "products-list") {
-    $listProductsControler = new ListProductsController();
-    $listProductsControler->listProducts();
     return;
 }

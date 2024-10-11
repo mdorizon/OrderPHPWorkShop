@@ -5,7 +5,9 @@ require_once './order/model/entity/Order.php';
 class OrderRepository {
 
     public function __construct() {
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
     }
     public function persist(Order $order): Order {
         $_SESSION['order'] = $order;
